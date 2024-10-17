@@ -21,10 +21,10 @@ func (h *Handler) InitRouter(app *gin.Engine) *gin.Engine {
 	accounts.POST("/creat", h.CreateAccount)
 
 	// 查看账户信息
-	accounts.GET("/:id", h.ListAccounts)
+	accounts.GET("/:id", h.GetAccount)
 
 	// 查看owner拥有多少个账户
-	accounts.GET("/:owner", h.GetAccount)
+	accounts.GET("/owners", h.ListAccounts)
 
 	accounts.DELETE("/:id", h.DeleteAccount)
 

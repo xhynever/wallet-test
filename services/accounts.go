@@ -92,15 +92,15 @@ func (service *AccountsService) DeleteAccount(req DeleteRequest) error {
 }
 
 type ListAccountRequest struct {
-	ID       int64 `form:"id"`
-	PageID   int32 `form:"page_id"`
-	PageSize int32 `form:"page_size" `
+	Owner    string `form:"owner"`
+	PageID   int32  `form:"page_id"`
+	PageSize int32  `form:"page_size" `
 }
 
 func (service *AccountsService) ListAccounts(req ListAccountRequest) ([]repository.Account, error) {
 
 	arg := repository.ListAccountsParams{
-		ID:     req.ID,
+		Owner:  req.Owner,
 		Limit:  req.PageSize,
 		Offset: (req.PageID - 1) * req.PageSize,
 	}
@@ -117,7 +117,7 @@ type ListEntriesRequest struct {
 	PageSize int32 `form:"page_size"`
 }
 
-func (service *AccountsService) ListEntries(req ListAccountRequest) ([]repository.Entry, error) {
+func (service *AccountsService) ListEntries(req ListEntriesRequest) ([]repository.Entry, error) {
 
 	arg := repository.ListEntriesParams{
 		AccountID: req.ID,

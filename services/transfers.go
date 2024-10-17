@@ -31,8 +31,6 @@ func (service *AccountsService) validAccount(ctx context.Context, accountID int6
 }
 
 func (service *AccountsService) CreateTransfer(req TxRequest) (repository.TransferTxResult, error) {
-
-	fmt.Println("创建交易tx", req.FromAccountID)
 	if req.FromAccountID == req.ToAccountID {
 		if req.Amount > 0 {
 			// 存款
@@ -72,7 +70,7 @@ func (service *AccountsService) CreateTransfer(req TxRequest) (repository.Transf
 		ToAccountID:   req.ToAccountID,
 		Amount:        req.Amount,
 	}
-	// fmt.Println("打印参数", arg)
+	
 	result, err := service.store.TransferTx(context.Background(), arg)
 	if err != nil {
 		return result, err

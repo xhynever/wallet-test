@@ -11,11 +11,7 @@ import (
 )
 
 func (h *Handler) CreateAccount(ctx *gin.Context) {
-	// var req services.GetAccountRequest
-	// if err := ctx.ShouldBindUri(&req); err != nil {
-	// 	ctx.JSON(http.StatusBadRequest, responses.ErrorResponse(err))
-	// 	return
-	// }
+
 	var req services.CreateAccountRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		fmt.Println("参数解析错误")
@@ -97,6 +93,7 @@ func (h *Handler) ListAccounts(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, responses.ErrorResponse(err))
 		return
 	}
+	fmt.Println(req)
 	accounts, err := h.services.Accounts.ListAccounts(req)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, responses.ErrorResponse(err))
@@ -105,12 +102,12 @@ func (h *Handler) ListAccounts(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, accounts)
 }
 func (h *Handler) ListEntries(ctx *gin.Context) {
-	var req services.ListAccountRequest
+	var req services.ListEntriesRequest
 	if err := ctx.ShouldBindQuery(&req); err != nil {
 		ctx.JSON(http.StatusBadRequest, responses.ErrorResponse(err))
 		return
 	}
-	fmt.Println(req)
+	// fmt.Println(req)
 	accounts, err := h.services.Accounts.ListEntries(req)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, responses.ErrorResponse(err))

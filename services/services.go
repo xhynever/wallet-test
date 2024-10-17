@@ -11,7 +11,7 @@ type Accounts interface {
 	DeleteAccount(req DeleteRequest) error
 	ListAccounts(req ListAccountRequest) ([]repository.Account, error)
 	CreateTransfer(req TxRequest) (repository.TransferTxResult, error)
-	ListEntries(req ListAccountRequest) ([]repository.Entry, error)
+	ListEntries(req ListEntriesRequest) ([]repository.Entry, error)
 }
 
 type Service struct {

@@ -5,13 +5,10 @@ import (
 	"fmt"
 
 	"github.com/jmoiron/sqlx"
-	// 1. dont know any other way to generate mocks
-	//repository "github.com/xhynever/wallet-test/repository"
+
 )
 
 type Store interface {
-	// 2. dont know any other way to generate mocks
-	//repository.Querier
 	Querier
 	TransferTx(ctx context.Context, arg TransferTxParams) (TransferTxResult, error)
 }
@@ -58,11 +55,9 @@ type TransferTxResult struct {
 }
 
 func (store *SQLStore) TransferTx(ctx context.Context, arg TransferTxParams) (TransferTxResult, error) {
-
 	var result TransferTxResult
 	// 存款项目
 	if arg.FromAccountID == arg.ToAccountID {
-		fmt.Println("存q取款中")
 		err := store.execTx(ctx, func(q *Queries) error {
 			var err error
 			result.Transfer, err = q.CreateTransfer(ctx, CreateTransferParams{
@@ -94,7 +89,6 @@ func (store *SQLStore) TransferTx(ctx context.Context, arg TransferTxParams) (Tr
 	} else {
 		err := store.execTx(ctx, func(q *Queries) error {
 			var err error
-
 			result.Transfer, err = q.CreateTransfer(ctx, CreateTransferParams{
 				FromAccountID: arg.FromAccountID,
 				ToAccountID:   arg.ToAccountID,
@@ -122,13 +116,11 @@ func (store *SQLStore) TransferTx(ctx context.Context, arg TransferTxParams) (Tr
 
 			} else {
 				result.FromAccount, result.ToAccount, err = addMoney(ctx, q, arg.ToAccountID, arg.Amount, arg.FromAccountID, -arg.Amount)
-
 			}
 			return nil
 		})
 		return result, err
 	}
-
 }
 
 func addMoney(
