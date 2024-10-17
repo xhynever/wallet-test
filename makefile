@@ -62,7 +62,7 @@ gooseinit:
 
 # MOCK
 mock:
-	@mockgen -source internal/repository/sqlc/store.go -destination tests/repository/sqlc/mock/store.go -package repoMock -aux_files repository=internal/repository/sqlc/querier.go
+	@mockgen -source repository/sqlc/store.go -destination tests/repository/sqlc/mock/store.go -package repoMock -aux_files repository=repository/sqlc/querier.go
 
 
 	# MIGRATIONS

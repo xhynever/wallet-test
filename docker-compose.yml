@@ -1,0 +1,26 @@
+version: '3'
+services:
+  db:
+    image: postgres:14.4-alpine
+    container_name: bankDB
+    restart: always
+    env_file: 
+      - .env
+    ports:
+      - ${POSTGRES_PORT}:5432
+    volumes:
+      - db:/var/lib/postgres/data
+    hostname: localhost
+  bank:
+    build: .
+    restart: always
+    depends_on:
+      - db
+    env_file:
+      - .env
+    ports:
+     - 8080:8080
+    hostname: localhost
+volumes:
+  db:
+  db-auth:
