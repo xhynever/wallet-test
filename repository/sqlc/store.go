@@ -65,7 +65,6 @@ func (store *SQLStore) TransferTx(ctx context.Context, arg TransferTxParams) (Tr
 				ToAccountID:   arg.ToAccountID,
 				Amount:        arg.Amount,
 			})
-			fmt.Println("result.Transfer", result.Transfer)
 			if err != nil {
 				return err
 			}

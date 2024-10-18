@@ -9,10 +9,10 @@ import (
 )
 
 type TxRequest struct {
-	FromAccountID int64  `json:"from_account_id" `
-	ToAccountID   int64  `json:"to_account_id" `
-	Amount        int64  `json:"amount" `
-	Currency      string `json:"currency" `
+	FromAccountID int64  `json:"from_account_id"  binding:"required,min=1"`
+	ToAccountID   int64  `json:"to_account_id" binding:"required,min=1"`
+	Amount        int64  `json:"amount" binding:"required"`
+	Currency      string `json:"currency" binding:"required"`
 }
 
 func (service *AccountsService) validAccount(ctx context.Context, accountID int64, currency string) (bool, error) {
@@ -44,7 +44,7 @@ func (service *AccountsService) CreateTransfer(req TxRequest) (repository.Transf
 			if err != nil || !fromAccount {
 				return repository.TransferTxResult{}, err
 			}
-			account, err := service.store.GetAccount(context.Background(), req.ToAccountID)
+			account, err := service.store.GetAccount(context.Background(), req.FromAccountID)
 			if err != nil {
 				return repository.TransferTxResult{}, err
 			}
@@ -70,7 +70,7 @@ func (service *AccountsService) CreateTransfer(req TxRequest) (repository.Transf
 		ToAccountID:   req.ToAccountID,
 		Amount:        req.Amount,
 	}
-	
+
 	result, err := service.store.TransferTx(context.Background(), arg)
 	if err != nil {
 		return result, err

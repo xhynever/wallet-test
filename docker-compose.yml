@@ -1,7 +1,7 @@
 version: '3'
 services:
   db:
-    image: postgres:14.4-alpine
+    image: postgres:12-alpine
     container_name: bankDB
     restart: always
     env_file: 

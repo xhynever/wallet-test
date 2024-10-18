@@ -72,6 +72,7 @@ func InitDB() (*sqlx.DB, error) {
   "balance" bigint NOT NULL,
   "currency" varchar NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
+  CHECK (balance >= 0)
 );
 CREATE TABLE IF NOT EXISTS "entries" (
   "id" bigserial PRIMARY KEY,
@@ -135,21 +136,11 @@ func LoadConfig(path string) (config Config, err error) {
 	return
 }
 
-func RandomInt(min, max int64) int64 {
-	return min + int64(rand.Int63n(max-min+1))
-}
-
 const (
 	USD = "USD"
 	EUR = "EUR"
 	CAD = "CAD"
 )
-
-func RandomCurrency() string {
-	currencies := []string{"EUR", "USD", "CAD"}
-	n := len(currencies)
-	return currencies[rand.Intn(n)]
-}
 
 func IsSupportedCurrency(currency string) bool {
 	switch currency {

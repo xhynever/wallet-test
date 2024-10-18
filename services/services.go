@@ -7,7 +7,7 @@ import (
 type Accounts interface {
 	CreateAccount(req CreateAccountRequest) (repository.Account, error)
 	GetAccount(req GetAccountRequest) (repository.Account, error)
-	UpdateAccount(req UpdateAccountRequest) (repository.Account, error)
+	// UpdateAccount(req UpdateAccountRequest) (repository.Account, error)
 	DeleteAccount(req DeleteRequest) error
 	ListAccounts(req ListAccountRequest) ([]repository.Account, error)
 	CreateTransfer(req TxRequest) (repository.TransferTxResult, error)

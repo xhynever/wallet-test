@@ -52,21 +52,8 @@ type UpdateAccountRequest struct {
 	ID      int64  `uri:"id" binding:"required,min=1"`
 }
 
-func (service *AccountsService) UpdateAccount(req UpdateAccountRequest) (repository.Account, error) {
-	arg := repository.UpdateAccountParams{
-		Owner:   req.Owner,
-		Balance: req.Balance,
-		ID:      req.ID,
-	}
-	account, err := service.store.UpdateAccount(context.Background(), arg)
-	if err != nil {
-		return account, err
-	}
-	return account, nil
-}
-
 type DeleteRequest struct {
-	ID int64 `uri:"id" `
+	ID int64 `uri:"id"  binding:"required,min=1"`
 }
 
 func (service *AccountsService) DeleteAccount(req DeleteRequest) error {
@@ -92,9 +79,9 @@ func (service *AccountsService) DeleteAccount(req DeleteRequest) error {
 }
 
 type ListAccountRequest struct {
-	Owner    string `form:"owner"`
-	PageID   int32  `form:"page_id"`
-	PageSize int32  `form:"page_size" `
+	Owner    string `form:"owner"  json:"owner"`
+	PageID   int32  `form:"page_id"  json:"page_id" binding:"required,min=1" `
+	PageSize int32  `form:"page_size" json:"page_size" binding:"required,min=5,max=20" `
 }
 
 func (service *AccountsService) ListAccounts(req ListAccountRequest) ([]repository.Account, error) {
@@ -104,6 +91,7 @@ func (service *AccountsService) ListAccounts(req ListAccountRequest) ([]reposito
 		Limit:  req.PageSize,
 		Offset: (req.PageID - 1) * req.PageSize,
 	}
+
 	account, err := service.store.ListAccounts(context.Background(), arg)
 	if err != nil {
 		return account, err
@@ -112,15 +100,15 @@ func (service *AccountsService) ListAccounts(req ListAccountRequest) ([]reposito
 }
 
 type ListEntriesRequest struct {
-	ID       int64 `form:"id"`
-	PageID   int32 `form:"page_id" `
-	PageSize int32 `form:"page_size"`
+	AccountID int64 `form:"account_id"`
+	PageID    int32 `form:"page_id" json:"page_id" binding:"required,min=1" `
+	PageSize  int32 `form:"page_size" json:"page_size" binding:"required,min=5,max=20" `
 }
 
 func (service *AccountsService) ListEntries(req ListEntriesRequest) ([]repository.Entry, error) {
 
 	arg := repository.ListEntriesParams{
-		AccountID: req.ID,
+		AccountID: req.AccountID,
 		Limit:     req.PageSize,
 		Offset:    (req.PageID - 1) * req.PageSize,
 	}

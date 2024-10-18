@@ -14,8 +14,6 @@ func NewHandler(services *services.Service) *Handler {
 }
 
 func (h *Handler) InitRouter(app *gin.Engine) *gin.Engine {
-	//Accounts route
-	// 可以添加一个账户登陆的中间层 accounts := app.Group("/accounts").Use(Middleware())
 
 	accounts := app.Group("/accounts")
 	accounts.POST("/creat", h.CreateAccount)
@@ -23,7 +21,7 @@ func (h *Handler) InitRouter(app *gin.Engine) *gin.Engine {
 	// 查看账户信息
 	accounts.GET("/:id", h.GetAccount)
 
-	// 查看owner拥有多少个账户
+	// 查询owner拥有多少个账户,或者分页查询账户
 	accounts.GET("/owners", h.ListAccounts)
 
 	accounts.DELETE("/:id", h.DeleteAccount)
