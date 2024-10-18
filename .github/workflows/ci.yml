@@ -41,8 +41,5 @@ jobs:
     - name: Install goose migrations
       run: go install github.com/pressly/goose/v3/cmd/goose@latest
     
-    - name: Run migrations
-      run: make up
-
     - name: Test
       run: make testCI

@@ -39,21 +39,7 @@ util      读取配置，初始化表
 [servicces](.\services\accounts_test.go)
 [sqlc](.\repository\sqlc\account_test.go)
 
+## api在线文档
+https://apifox.com/apidoc/shared-09c25764-2738-405e-b9e9-bace92c4cc78
 
-
-
-
-
-
-api：
-
-curl --location --request POST 'http://127.0.0.1:8080/accounts/creat' \
---header 'User-Agent: Apifox/1.0.0 (https://apifox.com)' \
---header 'Content-Type: application/json' \
---header 'Accept: */*' \
---header 'Host: 127.0.0.1:8080' \
---header 'Connection: keep-alive' \
---data-raw '{
-    "owner":"xhy",
-    "currency": "USD"
-}'
+[api接口文档](.\go-wallet.md)
