@@ -16,11 +16,11 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_USER: user
-          POSTGRES_PASSWORD: password
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: 123
           POSTGRES_DB: db
         ports:
-          - 5450:5432
+          - 5432:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -32,7 +32,7 @@ jobs:
     - name: Set up Go 1.x
       uses: actions/setup-go@v2
       with:
-        go-version: ^1.15
+        go-version: ^1.22
       id: go
 
     - name: Check out code into the Go module directory

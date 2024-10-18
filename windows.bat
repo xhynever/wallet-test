@@ -1,0 +1,9 @@
+set GOARCH=amd64
+go env -w GOARCH=amd64
+set GOOS=linux
+go env -w GOOS=linux
+go build -ldflags="-w -s" -o ./main ./main.go 
+set GOARCH=amd64
+go env -w GOARCH=amd64
+set GOOS=windows
+go env -w GOOS=windows

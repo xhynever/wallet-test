@@ -61,7 +61,9 @@ func InitDB() (*sqlx.DB, error) {
 		dbConfig.Password,
 		dbConfig.DbName)
 	// 指定db，可替换
-	conn, err := sqlx.Open(GlobalConfig.DbDriver, dbUrl)
+	fmt.Println("db：", dbUrl)
+	fmt.Println("db：", GlobalConfig.PgUrl)
+	conn, err := sqlx.Open(GlobalConfig.DbDriver, GlobalConfig.PgUrl)
 	if err != nil {
 		logrus.Fatal("cannot connect to db", err)
 		return nil, err

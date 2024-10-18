@@ -1,4 +1,4 @@
-version: '3'
+version: "3.9"
 services:
   db:
     image: postgres:12-alpine
@@ -7,10 +7,11 @@ services:
     env_file: 
       - .env
     ports:
-      - ${POSTGRES_PORT}:5432
+      - 5432:5432
     volumes:
       - db:/var/lib/postgres/data
-    hostname: localhost
+    hostname:  host.docker.internal
+
   bank:
     build: .
     restart: always
@@ -20,7 +21,10 @@ services:
       - .env
     ports:
      - 8080:8080
+    environment:
+      - DB_SOURCE=postgresql://root:123@localhost:5432/simple_bank?sslmode=disable
     hostname: localhost
+
 volumes:
   db:
   db-auth:
